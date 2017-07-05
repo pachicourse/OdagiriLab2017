@@ -1,5 +1,5 @@
 void AT_Shift(int change) {
-  SerialUSB.println(Gear_Pos);
+  Serial.println(Gear_Pos);
   if (change == -100) {
     Gear_Pos = gear_steps;
   }

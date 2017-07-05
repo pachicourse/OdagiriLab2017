@@ -6,14 +6,14 @@ void writeConfig(int addr) {
   int count = 0;
 
   while (1) {
-    if (SerialUSB.available() > 0) {
-      int buf = SerialUSB.read();
+    if (Serial.available() > 0) {
+      int buf = Serial.read();
       //      data = Se
       //      serialFlush();
       if (buf != -1) {
         data = (byte)buf;
         if (data == softbuff) {
-          SerialUSB.write(ans);
+          Serial.write(ans);
           configTable[count] = data;
           //        delay(100);
                   serialFlush();
@@ -25,7 +25,7 @@ void writeConfig(int addr) {
           }//test用
         }
         else {
-//          SerialUSB.write(byte(0));
+//          Serial.write(byte(0));
           softbuff = data;
         }
       }
@@ -71,24 +71,24 @@ void readConfig(int addr) {
 }
 
 void serialFlush() {
-  while (SerialUSB.available() > 0) {
-    char t = SerialUSB.read();
+  while (Serial.available() > 0) {
+    char t = Serial.read();
   }
 }
 
 void debugConfig() {
-  SerialUSB.print("uphill_border = "); SerialUSB.println(uphill_border);
-  SerialUSB.print("downhill_border = "); SerialUSB.println(downhill_border);
-  SerialUSB.print("gear_steps = "); SerialUSB.println(gear_steps);
-  SerialUSB.print("flat_accell_gear_up = "); SerialUSB.println(flat_accell_gear_up);
-  SerialUSB.print("flat_accell_gear_down = "); SerialUSB.println(flat_accell_gear_down);
-  SerialUSB.print("flat_cruise_gear_up = "); SerialUSB.println(flat_cruise_gear_up);
-  SerialUSB.print("flat_cruise_gear_down = "); SerialUSB.println(flat_cruise_gear_down);
-  SerialUSB.print("uphill_accell_gear_up = "); SerialUSB.println(uphill_accell_gear_up);
-  SerialUSB.print("uphill_accell_gear_down = "); SerialUSB.println(uphill_accell_gear_down);
-  SerialUSB.print("uphill_cruise_gear_up = "); SerialUSB.println(uphill_cruise_gear_up);
-  SerialUSB.print("uphill_cruise_gear_down = "); SerialUSB.println(uphill_cruise_gear_down);
-  SerialUSB.print("downhill_gear_up = "); SerialUSB.println(downhill_gear_up);
-  SerialUSB.print("downhill_gear_down = "); SerialUSB.println(downhill_gear_down);
-  SerialUSB.print("stop_speed = "); SerialUSB.println(stop_speed);
+  Serial.print("uphill_border = "); Serial.println(uphill_border);
+  Serial.print("downhill_border = "); Serial.println(downhill_border);
+  Serial.print("gear_steps = "); Serial.println(gear_steps);
+  Serial.print("flat_accell_gear_up = "); Serial.println(flat_accell_gear_up);
+  Serial.print("flat_accell_gear_down = "); Serial.println(flat_accell_gear_down);
+  Serial.print("flat_cruise_gear_up = "); Serial.println(flat_cruise_gear_up);
+  Serial.print("flat_cruise_gear_down = "); Serial.println(flat_cruise_gear_down);
+  Serial.print("uphill_accell_gear_up = "); Serial.println(uphill_accell_gear_up);
+  Serial.print("uphill_accell_gear_down = "); Serial.println(uphill_accell_gear_down);
+  Serial.print("uphill_cruise_gear_up = "); Serial.println(uphill_cruise_gear_up);
+  Serial.print("uphill_cruise_gear_down = "); Serial.println(uphill_cruise_gear_down);
+  Serial.print("downhill_gear_up = "); Serial.println(downhill_gear_up);
+  Serial.print("downhill_gear_down = "); Serial.println(downhill_gear_down);
+  Serial.print("stop_speed = "); Serial.println(stop_speed);
 }

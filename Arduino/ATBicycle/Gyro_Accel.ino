@@ -2,7 +2,7 @@
 void gyroSetup() {
   // put your setup code here, to run once:
   //gyro_init();
-//  SerialUSB.begin(9600);
+//  Serial.begin(9600);
 //  delay(100);
   acc_init(correc);
 
