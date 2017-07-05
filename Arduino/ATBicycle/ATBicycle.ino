@@ -98,18 +98,20 @@ int SHIFTER(void);
 int getGyro(void);
 void over_stroke(void);
 void reflesh(void);
-void AdcBooster()
-{
-  ADC->CTRLA.bit.ENABLE = 0;                     // Disable ADC
-  while( ADC->STATUS.bit.SYNCBUSY == 1 );        // Wait for synchronization
-  ADC->CTRLB.reg = ADC_CTRLB_PRESCALER_DIV64 |   // Divide Clock by 64.
-                   ADC_CTRLB_RESSEL_10BIT;       // Result on 10 bits
-  ADC->AVGCTRL.reg = ADC_AVGCTRL_SAMPLENUM_1 |   // 1 sample
-                     ADC_AVGCTRL_ADJRES(0x00ul); // Adjusting result by 0
-  ADC->SAMPCTRL.reg = 0x00;                      // Sampling Time Length = 0
-  ADC->CTRLA.bit.ENABLE = 1;                     // Enable ADC
-  while( ADC->STATUS.bit.SYNCBUSY == 1 );        // Wait for synchronization
-} // AdcBooster
+
+// @Todo 速度検証
+//void AdcBooster()
+//{
+//  ADC->CTRLA.bit.ENABLE = 0;                     // Disable ADC
+//  while( ADC->STATUS.bit.SYNCBUSY == 1 );        // Wait for synchronization
+//  ADC->CTRLB.reg = ADC_CTRLB_PRESCALER_DIV64 |   // Divide Clock by 64.
+//                   ADC_CTRLB_RESSEL_10BIT;       // Result on 10 bits
+//  ADC->AVGCTRL.reg = ADC_AVGCTRL_SAMPLENUM_1 |   // 1 sample
+//                     ADC_AVGCTRL_ADJRES(0x00ul); // Adjusting result by 0
+//  ADC->SAMPCTRL.reg = 0x00;                      // Sampling Time Length = 0
+//  ADC->CTRLA.bit.ENABLE = 1;                     // Enable ADC
+//  while( ADC->STATUS.bit.SYNCBUSY == 1 );        // Wait for synchronization
+//} // AdcBooster
 
 
 
@@ -119,7 +121,7 @@ double RPM(double);
 
 
 void setup() {
-  AdcBooster();
+//  AdcBooster();
   //割り込みの有効化
   attachInterrupt(manuLPin, MT_UP, RISING); //マニュアルシフトアップ端子
   attachInterrupt(manuRPin, MT_DOWN, RISING); //マニュアルシフトダウン端子
@@ -133,15 +135,15 @@ void setup() {
 
 
   //  myservo.write(0);
-  SerialUSB.begin(38400);
-//  while (!SerialUSB) {
+  Serial.begin(38400);
+//  while (!Serial) {
 //    ;//serial接続チェック
 //  }
   //    MsTimer2::set(5000, reflesh); // 500msごとにオンオフ
   //    MsTimer2::start();
 
   Wire.begin();       // I2C master
-  //  SerialUSB.write((byte)255);
+  //  Serial.write((byte)255);
   readConfig(0);
   acc_init(correc);
 //  debugConfig();
@@ -149,13 +151,13 @@ void setup() {
 void loop() {
   //digitalRead(serialToggle) == HIGH
   while(digitalRead(serialToggle) == HIGH) { //シリアル用のトグルスイッチON
-    SerialUSB.println("serial mode");
+    Serial.println("serial mode");
     writeConfig(0);
   }
   //  Serial.println("test");
   Debug_num =  map(analogRead(A5), 0, 1023, 0, (attach_max - attach_min) / gear_steps); //パルスの最小最大をmin
-  //    SerialUSB.println(Debug_num);
-  //        SerialUSB.println((int)((Gear_Pos * Debug_num) + attach_min + adjust));
+  //    Serial.println(Debug_num);
+  //        Serial.println((int)((Gear_Pos * Debug_num) + attach_min + adjust));
   
   CHANGE_Gear();
   over_stroke();
@@ -166,7 +168,7 @@ void loop() {
   Brake();
 
   //    Serial.println(Before_Pos);
-//    SerialUSB.println("test");
+//    Serial.println("test");
 
   if (millis() - stop_time > 2000) { //マニュアル変速があった場合、20秒自動変速停止
     if (millis() - stoper > 300) {
