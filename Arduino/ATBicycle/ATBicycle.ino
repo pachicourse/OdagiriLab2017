@@ -147,6 +147,7 @@ void setup() {
   readConfig(0);
   acc_init(correc);
 //  debugConfig();
+  setupBLE();
 }
 void loop() {
   //digitalRead(serialToggle) == HIGH
