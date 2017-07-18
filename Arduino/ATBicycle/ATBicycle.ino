@@ -11,7 +11,7 @@ bool up_down;//over stroke用
 #define spePin   11
 #define ServoPin 13
 #define serialToggle 12
-  
+
 // コンフィグ用
 #define EPR_ADDR 0x51  // EEPROM address A2=Low,A1=Low,A0=HIGH
 #define DATA_NUM 14 // 扱うデータ個数
@@ -132,7 +132,6 @@ void setup() {
   pinMode(braRPin, INPUT); //ブレーキ端子1
   pinMode(braLPin, INPUT); //ブレーキ端子2
   pinMode(serialToggle, INPUT); //シリアル通信用ボタン
-
 
   //  myservo.write(0);
   Serial.begin(38400);
