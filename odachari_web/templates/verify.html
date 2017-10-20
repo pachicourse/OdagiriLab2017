@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <h1>メールアドレス確認</h1>
+    <form action="/login" method="post">
+        {% module xsrf_form_html() %}
+        <p>email : <input type="text" name="username" /></p>
+        <input type="hidden" name="registid" value="{{params['registid']}}" />
+        <input type="submit" value="仮登録" />
+    </form>
+</body>
+</html>
