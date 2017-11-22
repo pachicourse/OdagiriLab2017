@@ -1,0 +1,24 @@
+{
+    "site": {
+        "debug": true,
+        "copyright": "odachari",
+        "title": "localhost:8999",
+        "cookie_secret": "c6zZppn_SuZCyIOUJeBjuewno434ireaT49L2Ls",
+        "password_secret": "ioi4waja23qlSdfkPldfFjlnsjawu90dAzklnlq",
+        "server_name": "localhost:8889",
+        "port": 8999
+    },
+    "mail": {
+        "smtp": {
+            "domain": "smtp.gmail.com",
+            "port": 587
+        },
+        "address": "hiroya@t0d0.jp",
+        "password": "todohiro1244",
+        "admin_address": "hiroya@t0d0.jp"
+    },
+    "admin": {
+        "id": "hoge",
+        "password": "hoge"
+    }
+}

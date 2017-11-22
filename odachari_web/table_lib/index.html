@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../static/css/table.css">
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="../static/js/table-renderer.js"></script>
+    <style>
+        .buttons{
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons">
+        <button onclick="addTop();">上に追加</button>
+        <button onclick="addBottom();">下に追加</button>
+    </div>
+    <div style="width: 75%" id="table"></div>
+<script>
+    var id = 0;
+    var table = document.getElementById("table");
+    var ph = 0;
+    function addTop() {
+        TableRenderer("table").addData(getData(), -1);
+    }
+    function addBottom() {
+        TableRenderer("table").addData(getData(), 1);
+        ph = table.getBoundingClientRect().height
+        var ay = ph + table.getBoundingClientRect().top;
+        if (ay > window.innerHeight) {
+            window.scrollBy(0, (ay - window.innerHeight));
+        }
+    }
+    function getData(){
+        var json = JSON.stringify({
+            columns: ["月日", "店舗名", "売上", "損失"],
+            sizes: [20, 25, 25, 30],
+            type: "c",
+            datas: [
+                {class: "a", click: {id: "", type: ""}, data: ["2017-06-01", "タクムマート", "100円", "100円"]},
+                {class: "b", click: {id: "", type: ""}, data: ["2017-06-01", "タクムマート", "100円", "100円"]},
+                {class: "c", click: {id: "", type: ""}, data: ["2017-06-01", "タクムマート", "100円", "100円"]},
+                {class: "d", click: {id: "", type: ""}, data: ["2017-06-01", "タクムマート", "100円", "100円"]},
+                {class: "e", click: {id: "", type: ""}, data: ["2017-06-01", "タクムマート", "100円", "100円"]},
+                {class: "f", click: {id: "", type: ""}, data: ["2017-06-01", "タクムマート", "100円", "100円"]}
+            ],
+            additions: [
+                ["売上合計", "600円"],
+                ["損失合計", "600円"]
+            ]
+        });
+        id ++;
+        return json;
+    }
+</script>
+</body>
+</html>
