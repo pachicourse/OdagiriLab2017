@@ -84,7 +84,7 @@ bool over_strokeflag = false;
 int tire_size = 2096;
 int speed_const;
 int cad_const;
-
+double current_speed = 0;//たれ
 boolean shift_up = false;
 
 //関数群

@@ -22,7 +22,7 @@ void setupBLE() {
 void sendValueBLE() {
   BLECentral central = blePeripheral.central();
   char buf[16];
-  snprintf(buf, 16, "%.2f, %d, %d", Speed(), getRPM(), Gear_Pos);
+  snprintf(buf, 16, "%.2f, %d, %d", current_speed, getRPM(), Gear_Pos);
 //  snprintf(buf, 12, "%d, %d, %d", random(1,100), random(1,100), random(1,100));
 //  Serial.println("hello");
   if(central) {

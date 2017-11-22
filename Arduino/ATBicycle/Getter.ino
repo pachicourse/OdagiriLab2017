@@ -5,7 +5,8 @@ double Speed(void) {
     beforemills_speed = millis();
     double speed_result = SPEED(wheel_speed);
     Serial.print("wheel_speed>");
-    Serial.println(speed_result);
+    Serial.println(wheel_speed);
+    current_speed = speed_result;
     return speed_result;
   }
 }
