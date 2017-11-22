@@ -90,7 +90,7 @@ boolean shift_up = false;
 //関数群
 void CHANGE_Gear(void);
 void Cadence(void);
-void Speed(void);
+double Speed(void);
 void Brake(void);
 void AT_Shift(int);
 void MODE_Select(void);
@@ -116,7 +116,7 @@ void reflesh(void);
 
 
 double SPEED(double);
-double RPM(double);
+double RPMtoInterval(double);
 
 
 
@@ -149,11 +149,12 @@ void setup() {
   setupBLE();
 }
 void loop() {
+  sendValueBLE();
   //digitalRead(serialToggle) == HIGH
-  while(digitalRead(serialToggle) == HIGH) { //シリアル用のトグルスイッチON
-    Serial.println("serial mode");
-    writeConfig(0);
-  }
+//  while(digitalRead(serialToggle) == HIGH) { //シリアル用のトグルスイッチON
+//    Serial.println("serial mode");
+//    writeConfig(0);
+//  }
   //  Serial.println("test");
   Debug_num =  map(analogRead(A5), 0, 1023, 0, (attach_max - attach_min) / gear_steps); //パルスの最小最大をmin
   //    Serial.println(Debug_num);

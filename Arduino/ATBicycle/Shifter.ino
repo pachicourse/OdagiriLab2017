@@ -5,10 +5,10 @@ int SHIFTER(void) {
 
   switch (Mode) {
     case 1://平地巡航
-      if (cadence <= RPM(flat_cruise_gear_up)) {
+      if (cadence <= RPMtoInterval(flat_cruise_gear_up)) {
         return (-1);
       }
-      else if (cadence >= RPM(flat_cruise_gear_down)) {
+      else if (cadence >= RPMtoInterval(flat_cruise_gear_down)) {
         return (1);
       }
       else {
@@ -16,10 +16,10 @@ int SHIFTER(void) {
       }
       break;
     case 2://平地加速
-      if (cadence <= RPM(flat_accell_gear_up)) {
+      if (cadence <= RPMtoInterval(flat_accell_gear_up)) {
         return (-1);
       }
-      else if (cadence >= RPM(flat_accell_gear_down)) {
+      else if (cadence >= RPMtoInterval(flat_accell_gear_down)) {
         return (1);
       }
       else {
@@ -28,10 +28,10 @@ int SHIFTER(void) {
       break;
 
     case 3://登坂巡航
-      if (cadence <= RPM(uphill_cruise_gear_up)) {
+      if (cadence <= RPMtoInterval(uphill_cruise_gear_up)) {
         return (-1);
       }
-      else if (cadence >= RPM(uphill_cruise_gear_down)) {
+      else if (cadence >= RPMtoInterval(uphill_cruise_gear_down)) {
         return (1);
       }
       else {
@@ -40,10 +40,10 @@ int SHIFTER(void) {
       break;
 
     case 4://登坂加速
-      if (cadence <= RPM(uphill_accell_gear_up)) {
+      if (cadence <= RPMtoInterval(uphill_accell_gear_up)) {
         return (-1);
       }
-      else if (cadence >= RPM(uphill_accell_gear_down)) {
+      else if (cadence >= RPMtoInterval(uphill_accell_gear_down)) {
         return (1);
       }
       else {
@@ -52,10 +52,10 @@ int SHIFTER(void) {
       break;
 
     case 5://下り
-      if (cadence <= RPM(downhill_gear_up)) {
+      if (cadence <= RPMtoInterval(downhill_gear_up)) {
         return (-1);
       }
-      else if (cadence >= RPM(downhill_gear_down)) {
+      else if (cadence >= RPMtoInterval(downhill_gear_down)) {
         return (1);
       }
       else {
@@ -84,10 +84,10 @@ int SHIFTER(void) {
 //
 //      switch (Mode) {
 //          case 1://平地巡航
-//              if(cadence<=RPM(97)){//97
+//              if(cadence<=RPMtoInterval(97)){//97
 //                  return(1);
 //              }
-//              else if(cadence>=RPM(83)){//83
+//              else if(cadence>=RPMtoInterval(83)){//83
 //                  return(-1);
 //              }
 //              else{
@@ -95,10 +95,10 @@ int SHIFTER(void) {
 //              }
 //              break;
 //          case 2://平地加速
-//              if(cadence<=RPM(90)){//90rpm
+//              if(cadence<=RPMtoInterval(90)){//90rpm
 //                  return(1);
 //              }
-//              else if(cadence>=RPM(75)){//75rpm
+//              else if(cadence>=RPMtoInterval(75)){//75rpm
 //                  return(-1);
 //              }
 //              else{

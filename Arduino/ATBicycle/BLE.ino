@@ -1,8 +1,9 @@
 #include <CurieBLE.h>
+#include <stdio.h>
 
 BLEPeripheral blePeripheral;
 BLEService CurieBLEService("1A95");
-BLECharacteristic timingCharacteristic("0B25", BLERead | BLEWrite, 2 );
+BLECharacteristic timingCharacteristic("0B25", BLERead | BLEWrite, 12);
 
 void setupBLE() {
   Serial.begin(38400);
@@ -14,19 +15,23 @@ void setupBLE() {
   blePeripheral.addAttribute(timingCharacteristic);
 
   blePeripheral.begin();
-  
+
   Serial.println("Bluetooth device active, waiting for connections...");
 }
 
 void sendValueBLE() {
   BLECentral central = blePeripheral.central();
-  char timing[2] = "1";
+  int cad = 10;
+  char buf[12];
+  snprintf(buf, 12, "%f,%d,%d", Speed(), getRPM(), Gear_Pos);
+//  snprintf(buf, 12, "%d, %d, %d", random(1,100), random(1,100), random(1,100));
+  Serial.println("hello");
   if(central) {
     Serial.print("Connected to central: ");
     // print the central's MAC address:
     Serial.println(central.address());
-    int bufsize = strlen(timing);
-    timingCharacteristic.setValue((unsigned char*)timing, bufsize); 
+    int bufsize = strlen(buf);
+    timingCharacteristic.setValue((unsigned char*)buf, bufsize);
     Serial.println("done");
   }
 }

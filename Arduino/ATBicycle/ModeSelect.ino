@@ -1,5 +1,5 @@
 void MODE_Select(void) {
-  if (cadence <= RPM(10)) { //ケイデンス10以上
+  if (cadence <= RPMtoInterval(10)) { //ケイデンス10以上
     if (brake == 0 || wheel_speed <= SPEED(stop_speed)) {
       if (angle > ((-1) * downhill_border) && angle < uphill_border) {
         if (wheel_speed <= SPEED(flat_speed_border)) {//平地のモード判定

@@ -1,10 +1,12 @@
 //speed取得
-void Speed(void) {
+double Speed(void) {
   if (digitalRead(spePin) == HIGH && millis() - beforemills_speed > 75) {
     wheel_speed = millis() - beforemills_speed;
     beforemills_speed = millis();
+    double speed_result = SPEED(wheel_speed);
     Serial.print("wheel_speed>");
-    Serial.println(SPEED(wheel_speed));
+    Serial.println(speed_result);
+    return speed_result;
   }
 }
 

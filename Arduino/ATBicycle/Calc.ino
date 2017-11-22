@@ -3,6 +3,12 @@ double SPEED(double convert) {
   return (1000 / ((convert * 1000000 / 3600) / tire_size));
 }
 
-double RPM(double convert) {
+double RPMtoInterval(double convert) {
   return (60 / convert * 1000);
 }
+
+int getRPM() {
+  // r/minにする ... convert * 1000 -> 秒に * 60 -> 分に
+  return (cadence * 1000 * 60);
+}
+
