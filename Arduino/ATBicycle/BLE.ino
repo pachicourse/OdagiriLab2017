@@ -3,7 +3,7 @@
 
 BLEPeripheral blePeripheral;
 BLEService CurieBLEService("1A95");
-BLECharacteristic timingCharacteristic("0B25", BLERead | BLEWrite, 12);
+BLECharacteristic timingCharacteristic("0B25", BLERead | BLEWrite, 16);
 
 void setupBLE() {
   Serial.begin(38400);
@@ -21,17 +21,16 @@ void setupBLE() {
 
 void sendValueBLE() {
   BLECentral central = blePeripheral.central();
-  int cad = 10;
-  char buf[12];
-  snprintf(buf, 12, "%f,%d,%d", Speed(), getRPM(), Gear_Pos);
+  char buf[16];
+  snprintf(buf, 16, "%.2f, %d, %d", Speed(), getRPM(), Gear_Pos);
 //  snprintf(buf, 12, "%d, %d, %d", random(1,100), random(1,100), random(1,100));
-  Serial.println("hello");
+//  Serial.println("hello");
   if(central) {
-    Serial.print("Connected to central: ");
+    //Serial.print("Connected to central: ");
     // print the central's MAC address:
-    Serial.println(central.address());
+    //Serial.println(central.address());
     int bufsize = strlen(buf);
     timingCharacteristic.setValue((unsigned char*)buf, bufsize);
-    Serial.println("done");
+    //Serial.println("done");
   }
 }

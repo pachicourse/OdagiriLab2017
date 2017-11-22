@@ -9,6 +9,6 @@ double RPMtoInterval(double convert) {
 
 int getRPM() {
   // r/minにする ... convert * 1000 -> 秒に * 60 -> 分に
-  return (cadence * 1000 * 60);
+  return ((double)1000 / (double)cadence * (double)60);
 }
 
