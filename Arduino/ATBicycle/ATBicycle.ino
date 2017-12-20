@@ -87,6 +87,10 @@ int cad_const;
 double current_speed = 0;//たれ
 boolean shift_up = false;
 
+// for BLE
+unsigned long ble_before_time;
+unsigned long ble_now_time;
+
 //関数群
 void CHANGE_Gear(void);
 void Cadence(void);
@@ -147,27 +151,34 @@ void setup() {
   acc_init(correc);
 //  debugConfig();
   setupBLE();
+  ble_before_time = millis();
 }
 void loop() {
-  sendValueBLE();
   //digitalRead(serialToggle) == HIGH
 //  while(digitalRead(serialToggle) == HIGH) { //シリアル用のトグルスイッチON
 //    Serial.println("serial mode");
 //    writeConfig(0);
 //  }
   //  Serial.println("test");
-  Debug_num =  map(analogRead(A5), 0, 1023, 0, (attach_max - attach_min) / gear_steps); //パルスの最小最大をmin
+  Debug_num = map(analogRead(A5), 0, 1023, 0, (attach_max - attach_min) / gear_steps); //パルスの最小最大をmin
   //    Serial.println(Debug_num);
   //        Serial.println((int)((Gear_Pos * Debug_num) + attach_min + adjust));
-  
+
   CHANGE_Gear();
   over_stroke();
   Cadence();
   Speed();
-  getAngle();
+//  getAngle(); // 現状使ってないのでクビ
 
   Brake();
-
+  
+  // 毎秒ごとにBLE送信処理
+  ble_now_time = millis();
+  if(ble_now_time - ble_before_time > 1000) {
+    sendValuesBLE();
+    ble_before_time = ble_now_time;
+  }
+  
   //    Serial.println(Before_Pos);
 //    Serial.println("test");
 
@@ -180,4 +191,3 @@ void loop() {
     }
   }
 }
-

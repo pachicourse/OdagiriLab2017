@@ -42,7 +42,8 @@ void CHANGE_Gear(void) {
 
 void over_stroke(void) {
         myservo.attach(ServoPin);
-
+//
+//    if (true) { //テスト用の行
   if (over_strokeflag == true) {
 //    Serial.println("overstroke");
     //      Serial.println("ovs");
