@@ -30,3 +30,8 @@ p
 	height: auto;
 	background: white;
 }
+
+canvas{
+    width: 100%;
+    height: 80%;
+}

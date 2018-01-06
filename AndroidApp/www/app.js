@@ -3,6 +3,85 @@
 // Application code starts here. The code is wrapped in a
 // function closure to prevent overwriting global objects.
 ;
+
+window.addEventListener("load", init);
+var tween;
+var rect;
+
+function init() {
+
+    var stage = new createjs.Stage("canvas");
+    stage.canvas.width = window.innerWidth;
+    stage.canvas.height = window.innerHeight;
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener("tick", tick);
+    handleLoad();
+
+    function handleLoad() {
+        h = window.innerWidth / 3;
+        h2 = window.innerWidth / 3+20;
+        
+        var speed_label = [80,85,90,95,0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80]
+    for(var i = 1; i <= 20; i++) {
+        var shape = new createjs.Shape();
+        var g = shape.graphics;
+        g.beginFill("black");
+        g.drawRect(0, 0, 10,10);
+        g.endFill();
+        var my_txt = new createjs.Text(String(speed_label[i-1]));
+
+        var rot = 2 * Math.PI * i / 20;
+        shape.x = h * Math.cos(rot) ;
+        my_txt.x = h2 * Math.cos(rot) ;
+//        + window.innerWidth / 2;
+        shape.y = h * Math.sin(rot) ;
+        my_txt.y = h2 * Math.sin(rot) ;
+//            + window.innerHeight / 2;
+        console.log(rot);
+        stage.addChild(shape);
+        stage.addChild(my_txt);
+//        ar_shape.push(shape);
+    }
+        
+        rect = new createjs.Shape();
+        var hari_size = stage.canvas.width * 0.4;
+        rect.graphics.beginFill("Black").drawRect(0, 0, hari_size, 4);
+
+        stage.addChild(rect);
+        stage.setTransform(stage.canvas.width / 2, stage.canvas.height / 2); //矩形を描画したい位置までステージの基準点を移動 
+        rect.regX = 0; //矩形の基準点を矩形の中心に移動 
+        rect.regY = 2; //矩形の基準点を矩形の中心に移動
+
+        //        rect.scaleX = rect.scaleY = 0.1;
+        tween = createjs.Tween.get(rect, {
+            loop: true,
+            override: true
+        }).to({
+            rotation: 360
+        }, 1000)
+    }
+
+    function tick(event) {
+        stage.update();
+    }
+}
+speed = 40;
+
+function updateTween(speed) {
+        speed += (Math.random() * (20 - 0 + 1) + 0)-10;
+
+    var angle = speed / 100 * 360;
+    console.log(speed);
+
+    createjs.Tween.removeTweens(rect);
+    tween = createjs.Tween.get(rect, {
+            override: true,
+        })
+        .to({
+            rotation: angle + 90 //90は下を0にするため。
+        }, 300, createjs.Ease.backOut)
+}
+
 var hoge = 0;
 (function () {
 
@@ -82,7 +161,8 @@ var hoge = 0;
                     dataCharacteristic,
                     function (data) {
                         data
-                        showMessage('characteristic data: ' + evothings.ble.fromUtf8(data)+(hoge++));
+                        showMessage('characteristic data: ' + evothings.ble.fromUtf8(data));
+                        updateTween(parseInt(evothings.ble.fromUtf8(data)));
                     },
                     function (errorCode) {
                         showMessage('readCharacteristic error: ' + errorCode);
@@ -163,7 +243,7 @@ var hoge = 0;
 
     function timer(callback) {
         callback();
-        setTimeout(timer,100,callback);
+        setTimeout(timer, 100, callback);
     }
 
 

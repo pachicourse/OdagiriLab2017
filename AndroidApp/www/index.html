@@ -23,18 +23,21 @@ Demo of using the high-level BLE Plugin API for reading the luxometer of the TI 
 </head>
 
 <body>
-	<img class="evo-image" src="https://evomedia.evothings.com/2013/11/evothings_logo_large_white1.png" />
+<script type="text/javascript" src="js/createjs.min.js"></script>
+<!--<script type="text/javascript" src="main.js"></script>-->
 
+<canvas id="canvas"></canvas>
+
+<!--	<img class="evo-image" src="https://evomedia.evothings.com/2013/11/evothings_logo_large_white1.png" />-->
 	<h1>odachari</h1>
 
-	<p>This app demonstrates how to use the BLE plugin API for reading the luxometer on the TI SensorTag CC2650.</p>
+<!--	<p>This app demonstrates how to use the BLE plugin API for reading the luxometer on the TI SensorTag CC2650.</p>-->
 
-	<p>Activate the SensorTag. If you don't have a SensorTag you can modify the code in file <code>app.js</code> to work with your device.</p>
-
+<!--	<p>Activate the SensorTag. If you don't have a SensorTag you can modify the code in file <code>app.js</code> to work with your device.</p>-->
+    <input type="button" onClick="updateTween(10)">
 	<p id="message">Preparing...!!!!!!</p>
 
 	<div id="sensor-value"></div>
-
 	<!--
 	Including cordova.js will automatically include the JavaScript library
 	for the Cordova BLE plugin.
