@@ -68,9 +68,16 @@ class MainHandler(BaseHandler):
             self.write("ログインしてください")
         else:
             params = {
-                "title":"メインメニュー"
+                "title":"メインメニュー",
+                "user":self.get_secure_cookie(self.cookie_username)
             }
             self.render("index.html", params=params)
+            
+            
+class SampleHandler(BaseHandler):
+    def get(self):
+        self.render("sample.html")
+
 #    新規ユーザの登録
 class UserRegistHandler(BaseHandler):
     def get(self):
@@ -188,7 +195,28 @@ class AjaxSampleHandler(BaseHandler):
         elif self.api_key_check(escapeHtmlAndMongo(self.get_argument("api_key"))):
             self.write()
             self.finish()
-        
+
+            
+class PostPracticeHandler(BaseHandler):
+    @tornado.web.asynchronous
+    def get(self):
+        term = self.get_argument("term")
+#        if 'start' not in self.request.arguments:
+#            self.write("wrong param")
+#        elif 'end' not in self.request.arguments:
+#            self.write("wrong param")
+#        elif 'api_key' not in self.request.arguments:
+#            self.write("wrong param")
+#        elif self.api_key_check(escapeHtmlAndMongo(self.get_argument("api_key"))):
+        self.write('{"speed":123,"cadence":125}'*(int)(term))
+        self.finish()
+    @tornado.web.asynchronous
+    def post(self):
+#        username = escapeHtmlAndMongo(self.get_argument("username"))
+#        password = escapeHtmlAndMongo(self.get_argument("password"))
+#        self.write(username+password)
+        self.write("hoge")
+        self.finish()
 
 
 
@@ -217,10 +245,12 @@ if __name__ == "__main__":
         handlers=[
             (r"/password-reset", PasswordResetHandler),
             (r"/regist", UserRegistHandler),
+            (r"/sample", SampleHandler),
             (r"/login", LoginHandler),
             (r"/logout", LogoutHandler),
             (r"/set-password", SetPasswordHandler),
-            (r"/api/sample", AjaxSampleHandler),
+#            (r"/api/sample", AjaxSampleHandler),
+#            (r"/api/post-practice-data", PostPracticeHandler),
             (r"/(?!(\?.*|#.*)).+", MainHandler),
             (r"/", MainHandler),
         ],

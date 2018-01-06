@@ -10,6 +10,7 @@ class DB_Access:
         self.client = pymongo.MongoClient('localhost', 27017)
         self.db = self.client.uriage_db
         self.user = self.db.user_collection
+        self.data = self.db.data_collection
         
     def add_user(self,user_id,password,object_id=None):
         if object_id is None:
@@ -41,6 +42,12 @@ class DB_Access:
     
     def get_temp_user(self,regist_id):
         return self.user.find_one({"regist_id":regist_id})
+    
+    
+    def add_practice_data(self,user_id,data):
+        self.data.insert_one({"user_id":user_id,"data":data})
+        for i in self.data.find({"user_id":user_id}):
+            print(i)
 
 db = DB_Access()
 #db.get_fixed_cost_by_term("hoge")
